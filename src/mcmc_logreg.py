@@ -149,7 +149,7 @@ class mcmc_log_reg:
             plt.xlabel('beta')
             plt.ylabel(f'Probability density beta_{i}')
             plt.text(mean*1.3, max_ylim*0.7, 'Mean: {:.2f}'.format(mean))
-            plt.savefig(f"data/histogram_beta_{i}.png")
+            # plt.savefig(f"data/histogram_beta_{i}.png")
             plt.show()
 
     def plot_param_trace(self, beta_distr):
@@ -158,5 +158,5 @@ class mcmc_log_reg:
             plt.title(f"Trace plot of beta_{i} parameter")
             plt.xlabel('iterations')
             plt.ylabel(f'beta_{i}')
-            plt.savefig(f"data/trace_plot_beta_{i}.png")
+            # plt.savefig(f"data/trace_plot_beta_{i}.png")
             plt.show()
