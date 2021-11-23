@@ -1,3 +1,6 @@
+# 1) choose base container
+# generally use the most recent tag
+
 # base notebook, contains Jupyter and relevant tools
 ARG BASE_CONTAINER=ucsdets/datahub-base-notebook:2021.2-stable
 
@@ -22,7 +25,7 @@ RUN apt-get -y install htop
 USER jovyan
 
 # RUN conda install -y scikit-learn
-RUN pip freeze > requirements.txt
+COPY requirements.txt requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Override command to disable running jupyter notebook at launch
