@@ -23,7 +23,7 @@ class mcmc_log_reg:
         Returns:
             [type]: [description]
         """
-        num = np.exp(np.matmul(X,beta.reshape((-1,1))))
+        num = np.exp(np.matmul(X,beta.reshape((-1,1)),dtype=np.float128))
         denom = 1 + (num)
         p_hat = num/denom
         return p_hat
@@ -54,8 +54,12 @@ class mcmc_log_reg:
         Returns:
             [type]: [description]
         """
-        return np.sum(y * np.log(self.inv_logit(beta.reshape((-1, 1)), X)) + 
-                      (1-y)*np.log((1-self.inv_logit(beta.reshape((-1,1)),X))))
+        p = self.inv_logit(beta.reshape((-1, 1)), X)
+        p_ = 1 - p
+        p = np.where(p <=0, 0, p)
+        p_ = np.where(p_ <= 0, 0, p_)
+        epsilon = 1e-5 
+        return np.sum(y * np.log(p+epsilon) + (1-y)*np.log(p_+epsilon))
     
     def log_posterior(self, y, X, beta, prior_means, prior_stds):
         """[summary]
